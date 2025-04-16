@@ -1,0 +1,19 @@
+<h1>Restaurants</h1>
+<table border="1" cellspacing="0" cellpadding="8">
+    <tr>
+        <th>Name</th>
+        <th>Cuisine</th>
+        <th>Borough</th>
+        <th>Actions</th>
+    </tr>
+    {{#each restaurants}}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{cuisine}}</td>
+        <td>{{borough}}</td>
+        <td>
+            <a href="/restaurants/{{_id}}">View</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>

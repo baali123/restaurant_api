@@ -1,0 +1,15 @@
+<h1>{{name}}</h1>
+<p><strong>Cuisine:</strong> {{cuisine}}</p>
+<p><strong>Borough:</strong> {{borough}}</p>
+<p><strong>Address:</strong>
+  {{address.building}}, {{address.street}}, {{address.zipcode}}
+</p>
+
+<h2>Grades:</h2>
+<ul>
+  {{#each grades}}
+    <li>Grade: {{grade}}, Score: {{score}}, Date: {{date}}</li>
+  {{/each}}
+</ul>
+
+<a href="/">Back to list</a>
