@@ -33,6 +33,32 @@ app.use("/api/restaurants", restaurantRoutes);
 
 // UI Routes
 app.get("/", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const perPage = 10;
+  const borough = req.query.borough || "";
+
+  const filter = borough ? { borough } : {};
+
+  try {
+    const total = await Restaurant.countDocuments(filter);
+    const restaurants = await Restaurant.find(filter)
+      .sort({ restaurant_id: 1 })
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .lean();
+
+    res.render("home", {
+      restaurants,
+      currentPage: page,
+      prevPage: page - 1,
+      nextPage: page + 1,
+      hasPrev: page > 1,
+      hasNext: page * perPage < total,
+      currentBorough: borough
+    });
+  } catch (err) {
+    res.status(500).send("Failed to load restaurants.");
+  }
   const restaurants = await Restaurant.find().limit(10).lean();
   res.render("home", { restaurants });
 });

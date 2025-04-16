@@ -1,19 +1,46 @@
 <h1>Restaurants</h1>
-<table border="1" cellspacing="0" cellpadding="8">
+
+<form method="GET" action="/">
+  <label for="borough">Filter by Borough:</label>
+  <select name="borough" id="borough" onchange="this.form.submit()">
+    <option value="">All</option>
+    <option value="Bronx">Bronx</option>
+    <option value="Brooklyn">Brooklyn</option>
+    <option value="Manhattan">Manhattan</option>
+    <option value="Queens">Queens</option>
+    <option value="Staten Island">Staten Island</option>
+  </select>
+</form>
+
+<table>
+  <thead>
     <tr>
-        <th>Name</th>
-        <th>Cuisine</th>
-        <th>Borough</th>
-        <th>Actions</th>
+      <th>Name</th>
+      <th>Cuisine</th>
+      <th>Borough</th>
+      <th>Actions</th>
     </tr>
+  </thead>
+  <tbody>
     {{#each restaurants}}
     <tr>
-        <td>{{name}}</td>
-        <td>{{cuisine}}</td>
-        <td>{{borough}}</td>
-        <td>
-            <a href="/restaurants/{{_id}}">View</a>
-        </td>
+      <td>{{name}}</td>
+      <td>{{cuisine}}</td>
+      <td>{{borough}}</td>
+      <td><a href="/restaurants/{{_id}}">View</a></td>
     </tr>
     {{/each}}
+  </tbody>
 </table>
+
+<div class="pagination">
+  {{#if hasPrev}}
+    <a href="/?page={{prevPage}}{{#if currentBorough}}&borough={{currentBorough}}{{/if}}">Previous</a>
+  {{/if}}
+
+  <span>Page {{currentPage}}</span>
+
+  {{#if hasNext}}
+    <a href="/?page={{nextPage}}{{#if currentBorough}}&borough={{currentBorough}}{{/if}}">Next</a>
+  {{/if}}
+</div>
